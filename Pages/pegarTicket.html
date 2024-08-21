@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pegar Ticket</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .container h1 {
+            margin: 0 0 20px;
+            font-size: 2em;
+        }
+
+        .container button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            font-size: 1em;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .container button:hover {
+            background-color: #0056b3;
+        }
+
+        .ticket-number {
+            margin-top: 20px;
+            font-size: 3em;
+            color: #333;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Pegar Ticket</h1>
+        <button onclick="pegarTicket(1)">Caso Leve</button>
+        <button onclick="pegarTicket(2)">Caso Médio</button>
+        <button onclick="pegarTicket(3)">Caso Grave</button>
+        <div class="ticket-number" id="ticketNumber"></div>
+    </div>
+
+    <script>
+        async function pegarTicket(id) {
+            
+            fetch(`http://localhost:3000/pegarTicket?id=${id}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Erro na solicitação: ' + response.statusText);
+                    }
+                    return response.text();
+                })
+                .then(data => {
+                    console.log(`Recepção ${id}: ${data}`);
+                    document.getElementById('ticketNumber').innerText = `Seu ticket é: ${data} \n Aguarde ser chamado.`;
+                })
+                .catch(error => {
+                    console.error('Erro ao buscar próximo paciente:', error);
+                });
+        }
+    </script>
+</body>
+
+</html>

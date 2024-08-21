@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tela Médico</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            width: 80%;
+            max-width: 1200px;
+        }
+        .medico {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .medico h2 {
+            margin: 0 0 10px;
+            font-size: 1.5em;
+        }
+        .medico p {
+            margin: 5px 0;
+            color: #555;
+        }
+        .medico button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            font-size: 1em;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .medico button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="medico" id="medico-1">
+            <h2>Dr. João Silva</h2>
+            <p>Cardiologista</p>
+            <p id="paciente-1">Paciente: </p>
+            <button onclick="proximoPaciente(1)">Próximo Paciente</button>
+        </div>
+        <div class="medico" id="medico-2">
+            <h2>Dra. Ana Souza</h2>
+            <p>Dermatologista</p>
+            <p id="paciente-2">Paciente: </p>
+            <button onclick="proximoPaciente(2)">Próximo Paciente</button>
+        </div>
+        <div class="medico" id="medico-3">
+            <h2>Dr. Carlos Lima</h2>
+            <p>Ortopedista</p>
+            <p id="paciente-3">Paciente: </p>
+            <button onclick="proximoPaciente(3)">Próximo Paciente</button>
+        </div>
+        <div class="medico" id="medico-4">
+            <h2>Dra. Fernanda Costa</h2>
+            <p>Pediatra</p>
+            <p id="paciente-4">Paciente: </p>
+            <button onclick="proximoPaciente(4)">Próximo Paciente</button>
+        </div>
+    </div>
+
+    <script>
+        function proximoPaciente(id) {
+            fetch(`http://localhost:3000/proxPaciente?id=${id}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Erro na solicitação: ' + response.statusText);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data && data.nome) {
+                        document.getElementById(`paciente-${id}`).innerText = `Paciente: ${data.nome} `;
+                    } else {
+                        document.getElementById(`paciente-${id}`).innerText = 'Paciente: Nenhum paciente na fila';
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro ao buscar próximo paciente:', error);
+                });
+        }
+    </script>
+</body>
+</html>

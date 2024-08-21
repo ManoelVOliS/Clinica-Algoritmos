@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guichê Médico</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .container {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .patient-info {
+            margin-top: 20px;
+            font-size: 3.5em;
+            color: #333;
+        }
+    </style>
+    <script>
+        // URL do endpoint que você deseja buscar
+        const url = 'http://localhost:3000/paciente';
+
+        // Função para buscar dados do endpoint
+        async function fetchData() {
+            try {
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error('Erro na solicitação: ' + response.statusText);
+                }
+                const data = await response.json();
+                console.log('Dados do paciente:', data);
+                updatePatientInfo(data);
+            } catch (error) {
+                console.error('Erro ao buscar dados:', error);
+            }
+        }
+
+        // Função para atualizar as informações do paciente na tela
+        function updatePatientInfo(data) {
+            const patientInfoDiv = document.getElementById('patientInfo');
+            patientInfoDiv.innerHTML = `
+                <p>Nome do Paciente: ${data.nome}</p>
+                <p>Consulta: ${data.medico}</p>
+            `;
+        }
+
+        // Chama a função fetchData quando a página carrega
+        window.onload = fetchData;
+        setInterval(fetchData, 2000);
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Guichê Médico</h1>
+        <div id="patientInfo" class="patient-info">
+            <p>Carregando...</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recepção</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+
+        .container {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            margin: 10px;
+        }
+
+        .container h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .form-group select {
+            padding: 8px;
+        }
+
+        .form-group button {
+            width: 100%;
+            padding: 10px;
+            font-size: 1em;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 2%;
+        }
+
+        .form-group button:hover {
+            background-color: #0056b3;
+        }
+
+        .forms-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="forms-container">
+        <div class="container">
+            <h1>Recepção 1</h1>
+            <div id="ticketNumber1"></div>
+            <form id="cadastroForm1">
+                <div class="form-group">
+                    <label for="nome1">Nome</label>
+                    <input type="text" id="nome1" name="nome" required>
+                </div>
+                <div class="form-group">
+                    <label for="cpf1">CPF</label>
+                    <input type="text" id="cpf1" name="cpf" required>
+                </div>
+                <div class="form-group">
+                    <label for="endereco1">Endereço</label>
+                    <input type="text" id="endereco1" name="endereco" required>
+                </div>
+                <div class="form-group">
+                    <label for="telefone1">Telefone</label>
+                    <input type="text" id="telefone1" name="telefone" required>
+                </div>
+                <div class="form-group">
+                    <label for="planoSaude1">Plano de Saúde</label>
+                    <select id="planoSaude1" name="planoSaude" required>
+                        <option value="">Selecione</option>
+                        <option value="sim">Sim</option>
+                        <option value="nao">Não</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="medico1">Médico</label>
+                    <select id="medico1" name="medico" required>
+                        <option value="">Selecione</option>
+                        <option value="cardiologista">Cardiologista</option>
+                        <option value="dermatologista">Dermatologista</option>
+                        <option value="ortopedista">Ortopedista</option>
+                        <option value="pediatra">Pediatra</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <p id="info1">...</p>
+                    <button type="submit">Cadastrar</button>
+                    <button type="button" id="chamarBtn1">Chamar Proximo Paciente</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="container">
+            <h1>Recepção 2</h1>
+            <div id="ticketNumber2"></div>
+            <form id="cadastroForm2">
+                <div class="form-group">
+                    <label for="nome2">Nome</label>
+                    <input type="text" id="nome2" name="nome" required>
+                </div>
+                <div class="form-group">
+                    <label for="cpf2">CPF</label>
+                    <input type="text" id="cpf2" name="cpf" required>
+                </div>
+                <div class="form-group">
+                    <label for="endereco2">Endereço</label>
+                    <input type="text" id="endereco2" name="endereco" required>
+                </div>
+                <div class="form-group">
+                    <label for="telefone2">Telefone</label>
+                    <input type="text" id="telefone2" name="telefone" required>
+                </div>
+                <div class="form-group">
+                    <label for="planoSaude2">Plano de Saúde</label>
+                    <select id="planoSaude2" name="planoSaude" required>
+                        <option value="">Selecione</option>
+                        <option value="sim">Sim</option>
+                        <option value="nao">Não</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="medico2">Médico</label>
+                    <select id="medico2" name="medico" required>
+                        <option value="">Selecione</option>
+                        <option value="cardiologista">Cardiologista</option>
+                        <option value="dermatologista">Dermatologista</option>
+                        <option value="ortopedista">Ortopedista</option>
+                        <option value="pediatra">Pediatra</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <p id="info2">...</p>
+                    <button type="submit">Cadastrar</button>
+                    <button type="button" id="chamarBtn2">Chamar Proximo Paciente</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const forms = ['cadastroForm1', 'cadastroForm2'];
+            let prioridade1 = null;
+            let prioridade2 = null;
+    
+            forms.forEach(formId => {
+                document.getElementById(formId).addEventListener('submit', async function (event) {
+                    const prioridade = formId === 'cadastroForm1' ? prioridade1 : prioridade2;
+                    if (!prioridade) return alert('Chame o próximo paciente antes de cadastrar um novo!');
+                    event.preventDefault();
+                    const formData = new FormData(event.target);
+                    const data = Object.fromEntries(formData.entries());
+                    data.prioridade = prioridade; // Adiciona a prioridade ao objeto data
+                    console.log(`Dados do formulário ${formId}:`, data);
+    
+                    try {
+                        const response = await fetch('http://localhost:3000/cadastrarPaciente', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(data)
+                        });
+    
+                        if (!response.ok) {
+                            throw new Error('Erro na solicitação: ' + response.statusText);
+                        }
+    
+                        const result = await response.json();
+                        console.log(result);
+                        document.getElementById(`info${formId === 'cadastroForm1' ? '1' : '2'}`).innerText = 'Paciente cadastrado com sucesso!';
+                    } catch (error) {
+                        console.error('Erro ao cadastrar paciente:', error);
+                        document.getElementById(`info${formId === 'cadastroForm1' ? '1' : '2'}`).innerText = 'Erro ao cadastrar paciente!';
+                    }
+                    if (formId === 'cadastroForm1') {
+                        prioridade1 = null;
+                    } else {
+                        prioridade2 = null;
+                    }
+                });
+            });
+    
+            document.getElementById('chamarBtn1').addEventListener('click', async function () {
+                try {
+                    const response = await fetch('http://localhost:3000/chamarTicket?id=1');
+                    if (!response.ok) {
+                        throw new Error('Erro na solicitação: ' + response.statusText);
+                    }
+                    const data = await response.text();
+                    prioridade1 = data.replace(/[^\d]/g, ''); // Extrai apenas o número
+                    document.getElementById('ticketNumber1').innerText = "ticket: " + data;
+                } catch (error) {
+                    console.error('Erro ao buscar dados:', error);
+                }
+            });
+    
+            document.getElementById('chamarBtn2').addEventListener('click', async function () {
+                try {
+                    const response = await fetch('http://localhost:3000/chamarTicket?id=2');
+                    if (!response.ok) {
+                        throw new Error('Erro na solicitação: ' + response.statusText);
+                    }
+                    const data = await response.text();
+                    prioridade2 = data.replace(/[^\d]/g, ''); // Extrai apenas o número
+                    document.getElementById('ticketNumber2').innerText = "ticket: " + data;
+                } catch (error) {
+                    console.error('Erro ao buscar dados:', error);
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

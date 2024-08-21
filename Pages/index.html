@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clinica Takahashi Sedoe-Eukuro</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .container button {
+            margin: 10px 0;
+            padding: 10px 20px;
+            font-size: 1em;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .container button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1> Bem-vindo a Clinica Takahashi Sedoe-Eukuro</h1>
+        <button id = "RetirarTicket">Retirar Ticket</button>
+        <button id = "TelaRecepcao">Tela Recepção</button>
+        <button id = "TelaMedica">Tela Médico</button>
+        <button id = "FilaTicket">Atendimento Ticket</button>
+        <button id = "FilaMedica">Atendimento Médico</button>
+        <button id = "Estatistica">Estatísticas</button>
+    </div>
+</body>
+<script>
+    const botao1 = document.getElementById('RetirarTicket')
+    botao1.addEventListener('click', function(){
+        location.href = '/pegar';
+    });
+
+    const botao2 = document.getElementById('TelaRecepcao')
+    botao2.addEventListener('click', function(){
+        location.href = '/recepcao';
+    });
+
+    const botao3 = document.getElementById('FilaTicket')
+    botao3.addEventListener('click', function(){
+        location.href = '/guiche';
+    });
+
+    const botao4 = document.getElementById('FilaMedica')
+    botao4.addEventListener('click', function(){
+        location.href = '/guicheMedico';
+    });
+
+    const botao5 = document.getElementById('TelaMedica')
+    botao5.addEventListener('click', function(){
+        location.href = '/medico';
+    });
+
+    const botao6 = document.getElementById('Estatistica')
+    botao6.addEventListener('click', function(){
+        location.href = '/estatistica';
+    });
+</script>
+</html>
